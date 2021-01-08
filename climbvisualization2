@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A dashboard with cross-highlighting.",
   "background": "white",
-  "padding": 1,
+  "padding": 5,
   "data": [
     {"name": "Sectors_store"},
     {"name": "pts_store"},
@@ -53,16 +53,7 @@
     }
   ],
   "signals": [
-    {
-      "name": "childWidth",
-      "init": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-      "on": [
-        {
-          "update": "isFinite(containerSize()[1]) ? containerSize()[1] : 200",
-          "events": "window:resize"
-        }
-      ]
-    },
+    {"name": "childWidth", "value": 200},
     {"name": "concat_0_y_step", "value": 24.5},
     {
       "name": "concat_0_height",
