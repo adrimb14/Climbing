@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A dashboard with cross-highlighting.",
-  "background": "white",
+  "background": "transparent",
   "padding": 5,
   "data": [
     {"name": "Sectors_store"},
