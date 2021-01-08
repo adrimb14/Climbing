@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "A dashboard with cross-highlighting.",
-  "background": "transparent",
-  "padding": 1,
+  "background": "white",
+  "padding": 5,
   "data": [
     {"name": "Sectors_store"},
     {"name": "pts_store"},
@@ -59,7 +59,7 @@
       "name": "concat_0_height",
       "update": "bandspace(domain('concat_0_y').length, 0.1, 0.05) * concat_0_y_step"
     },
-    {"name": "concat_1_y_step", "value": 20},
+    {"name": "concat_1_y_step", "value": 22},
     {
       "name": "concat_1_height",
       "update": "bandspace(domain('concat_1_y').length, 0.1, 0.05) * concat_1_y_step"
@@ -169,8 +169,6 @@
           "orient": "bottom",
           "grid": false,
           "title": "Number of routes",
-          "labelFontSize": 12,
-          "titleFontSize": 15,
           "labelFlush": true,
           "labelOverlap": true,
           "tickCount": {"signal": "ceil(childWidth/40)"},
@@ -180,9 +178,7 @@
           "scale": "concat_0_y",
           "orient": "left",
           "grid": false,
-          "title": "Sectors",
-          "labelFontSize": 12,
-          "titleFontSize": 15,
+          "title": "Sector",
           "zindex": 0
         }
       ]
@@ -277,8 +273,6 @@
           "orient": "bottom",
           "grid": false,
           "title": "Number of routes",
-          "labelFontSize": 12,
-          "titleFontSize": 15,
           "labelFlush": true,
           "labelOverlap": true,
           "tickCount": {"signal": "ceil(childWidth/40)"},
@@ -289,8 +283,6 @@
           "orient": "left",
           "grid": false,
           "title": "Grades",
-          "labelFontSize": 12,
-          "titleFontSize": 15,
           "zindex": 0
         }
       ]
