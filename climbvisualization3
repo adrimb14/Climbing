@@ -53,17 +53,22 @@
     }
   ],
   "signals": [
-    {"name": "childWidth", "value": 200},
-    {"name": "concat_0_y_step", "value": 24.5},
+    {
+      "name": "width",
+      "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+      "on": [
+        {
+          "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+          "events": "window:resize"
+        }
+      ]
+    },
+    {"name": "concat_0_y_step", "value": 20},
     {
       "name": "concat_0_height",
       "update": "bandspace(domain('concat_0_y').length, 0.1, 0.05) * concat_0_y_step"
     },
-    {"name": "concat_1_y_step", "value": 22},
-    {
-      "name": "concat_1_height",
-      "update": "bandspace(domain('concat_1_y').length, 0.1, 0.05) * concat_1_y_step"
-    },
+    {"name": "concat_1_height", "value": 200},
     {
       "name": "unit",
       "value": {},
@@ -77,7 +82,7 @@
     },
     {"name": "pts", "update": "vlSelectionResolve(\"pts_store\", \"union\")"}
   ],
-  "layout": {"padding": 20, "bounds": "full", "align": "each"},
+  "layout": {"padding": 20, "columns": 1, "bounds": "full", "align": "each"},
   "marks": [
     {
       "type": "group",
@@ -85,7 +90,7 @@
       "style": "cell",
       "encode": {
         "update": {
-          "width": {"signal": "childWidth"},
+          "width": {"signal": "width"},
           "height": {"signal": "concat_0_height"}
         }
       },
@@ -155,7 +160,7 @@
           "orient": "bottom",
           "gridScale": "concat_0_y",
           "grid": true,
-          "tickCount": {"signal": "ceil(childWidth/40)"},
+          "tickCount": {"signal": "ceil(width/40)"},
           "domain": false,
           "labels": false,
           "aria": false,
@@ -171,7 +176,7 @@
           "title": "Number of routes",
           "labelFlush": true,
           "labelOverlap": true,
-          "tickCount": {"signal": "ceil(childWidth/40)"},
+          "tickCount": {"signal": "ceil(width/40)"},
           "zindex": 0
         },
         {
@@ -189,7 +194,7 @@
       "style": "cell",
       "encode": {
         "update": {
-          "width": {"signal": "childWidth"},
+          "width": {"signal": "width"},
           "height": {"signal": "concat_1_height"}
         }
       },
@@ -245,21 +250,21 @@
               "description": {
                 "signal": "\"Grado_estandarizado: \" + (isValid(datum[\"Grado_estandarizado\"]) ? datum[\"Grado_estandarizado\"] : \"\"+datum[\"Grado_estandarizado\"]) + \"; Count of Records: \" + (format(datum[\"__count\"], \"\"))"
               },
-              "x": {"scale": "concat_1_x", "field": "__count"},
-              "x2": {"scale": "concat_1_x", "value": 0},
-              "y": {"scale": "concat_1_y", "field": "Grado_estandarizado"},
-              "height": {"scale": "concat_1_y", "band": 1}
+              "x": {"scale": "concat_1_x", "field": "Grado_estandarizado"},
+              "width": {"scale": "concat_1_x", "band": 1},
+              "y": {"scale": "concat_1_y", "field": "__count"},
+              "y2": {"scale": "concat_1_y", "value": 0}
             }
           }
         }
       ],
       "axes": [
         {
-          "scale": "concat_1_x",
-          "orient": "bottom",
-          "gridScale": "concat_1_y",
+          "scale": "concat_1_y",
+          "orient": "left",
+          "gridScale": "concat_1_x",
           "grid": true,
-          "tickCount": {"signal": "ceil(childWidth/40)"},
+          "tickCount": {"signal": "ceil(concat_1_height/40)"},
           "domain": false,
           "labels": false,
           "aria": false,
@@ -272,17 +277,19 @@
           "scale": "concat_1_x",
           "orient": "bottom",
           "grid": false,
-          "title": "Number of routes",
-          "labelFlush": true,
-          "labelOverlap": true,
-          "tickCount": {"signal": "ceil(childWidth/40)"},
+          "title": "Grades",
+          "labelAngle": 315,
+          "labelAlign": "right",
+          "labelBaseline": "top",
           "zindex": 0
         },
         {
           "scale": "concat_1_y",
           "orient": "left",
           "grid": false,
-          "title": "Grades",
+          "title": "Number of routes",
+          "labelOverlap": true,
+          "tickCount": {"signal": "ceil(concat_1_height/40)"},
           "zindex": 0
         }
       ]
@@ -304,7 +311,7 @@
       "name": "concat_0_x",
       "type": "linear",
       "domain": {"data": "data_1", "field": "__count"},
-      "range": [0, {"signal": "childWidth"}],
+      "range": [0, {"signal": "width"}],
       "nice": true,
       "zero": true
     },
@@ -322,23 +329,23 @@
     },
     {
       "name": "concat_1_x",
-      "type": "linear",
-      "domain": {"data": "data_2", "field": "__count"},
-      "range": [0, {"signal": "childWidth"}],
-      "nice": true,
-      "zero": true
-    },
-    {
-      "name": "concat_1_y",
       "type": "band",
       "domain": {
         "data": "data_2",
         "field": "Grado_estandarizado",
         "sort": true
       },
-      "range": {"step": {"signal": "concat_1_y_step"}},
+      "range": [0, {"signal": "width"}],
       "paddingInner": 0.1,
       "paddingOuter": 0.05
+    },
+    {
+      "name": "concat_1_y",
+      "type": "linear",
+      "domain": {"data": "data_2", "field": "__count"},
+      "range": [{"signal": "concat_1_height"}, 0],
+      "nice": true,
+      "zero": true
     }
   ],
   "config": {}
